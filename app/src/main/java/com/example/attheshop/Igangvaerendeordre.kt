@@ -12,6 +12,7 @@ class Igangvaerendeordre : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_igangvaerendeordre)
 
+        //Sets the button with "fab" as ID, to go back to the MainActivity
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
 
