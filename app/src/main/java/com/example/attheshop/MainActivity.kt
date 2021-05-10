@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         val ordersButton = findViewById<Button>(R.id.OrdersButton)
         val lastOpenButton = findViewById<Button>(R.id.LastOpenButton)
 
-        //Listens for a click on the "customerButton" and sends it to "Kunder" activity
+        //Listens for a click on the "customerButton" and activates the intent to go to  "Kunder" activity
         customerButton.setOnClickListener {
             val intent = Intent(this, Kunder::class.java)
 
@@ -24,21 +24,21 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        //Listens for a click on the "carButton" and sends it to "Biler" activity
+        //Listens for a click on the "carButton" and activates the intent to go to "Biler" activity
         carButton.setOnClickListener {
             val intent = Intent(this, Biler::class.java)
 
             startActivity(intent)
         }
 
-        //Listens for a click on the "ordersButton" and sends it to "Igangvaerendeordre" activity
+        //Listens for a click on the "ordersButton" and activates the intent to go to  "Igangvaerendeordre" activity
         ordersButton.setOnClickListener {
             val intent = Intent(this, Igangvaerendeordre::class.java)
 
             startActivity(intent)
         }
 
-        //Listens for a click on the "lastOpenButton" and sends it to "SenestAabne" activity
+        //Listens for a click on the "lastOpenButton" and activates the intent to go to  "SenestAabne" activity
         lastOpenButton.setOnClickListener {
             val intent = Intent(this, SenestAabne::class.java)
 
