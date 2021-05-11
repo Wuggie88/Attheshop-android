@@ -13,11 +13,11 @@ class ReservedeleModel {
         this.productName = productname
         this.quantity = quantity
     }
-/*
+
     constructor(productname: String, quantity: Int) {
         this.productName = productname
         this.quantity = quantity
     }
-    */
+
 
 }

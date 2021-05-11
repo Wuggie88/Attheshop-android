@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/Theme.Attheshop.AppBarOverlay"/>
 
-    <include layout="@layout/content_senest_aabne" />
+    <include layout="@layout/content_reservedele" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

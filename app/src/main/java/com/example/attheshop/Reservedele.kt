@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
+import android.view.View
+import kotlinx.android.synthetic.main.content_reservedele.*
+
 
 class Reservedele : AppCompatActivity() {
 
@@ -16,6 +19,48 @@ class Reservedele : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
 
             startActivity(intent)
+        }
+
+        fun newProduct(view: View) {
+            val dbHandler = DatabaseHandler(this, null, null, 1)
+
+            val quantity = Integer.parseInt(productQuantity.text.toString())
+
+            val product = ReservedeleModel(productName.text.toString(), quantity)
+
+            dbHandler.addProduct(product)
+            productName.setText("")
+            productQuantity.setText("")
+        }
+
+        fun lookupProduct(view: View) {
+            val dbHandler = DatabaseHandler(this, null, null, 1)
+
+            val product = dbHandler.findProduct(
+                    productName.text.toString())
+
+            if (product != null) {
+                productID.text = product.id.toString()
+
+                productQuantity.setText(
+                        product.quantity.toString())
+            } else {
+                productID.text = "No Match Found"
+            }
+        }
+
+        fun removeProduct(view: View) {
+            val dbHandler = DatabaseHandler(this, null, null, 1)
+
+            val result = dbHandler.deleteProduct(
+                    productName.text.toString())
+
+            if (result) {
+                productID.text = "Record Deleted"
+                productName.setText("")
+                productQuantity.setText("")
+            } else
+                productID.text = "No Match Found"
         }
     }
 
