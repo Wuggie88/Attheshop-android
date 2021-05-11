@@ -52,11 +52,11 @@
         app:layout_constraintTop_toBottomOf="@+id/CarButton" />
 
     <Button
-        android:id="@+id/LastOpenButton"
+        android:id="@+id/spareParts"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Seneste Ordre"
+        android:text="Reservedele"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/OrdersButton" />

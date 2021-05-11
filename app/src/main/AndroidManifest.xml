@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Attheshop">
         <activity
-            android:name=".SenestAabne"
+            android:name=".Reservedele"
             android:label="@string/title_activity_senest_aabne"
             android:theme="@style/Theme.Attheshop.NoActionBar"></activity>
         <activity

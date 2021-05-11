@@ -3,7 +3,6 @@ package com.example.attheshop
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
@@ -15,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         val customerButton = findViewById<Button>(R.id.CustomerButton)
         val carButton = findViewById<Button>(R.id.CarButton)
         val ordersButton = findViewById<Button>(R.id.OrdersButton)
-        val lastOpenButton = findViewById<Button>(R.id.LastOpenButton)
+        val partsButton = findViewById<Button>(R.id.spareParts)
 
         //Listens for a click on the "customerButton" and activates the intent to go to  "Kunder" activity
         customerButton.setOnClickListener {
@@ -39,9 +38,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //Listens for a click on the "lastOpenButton" and activates the intent to go to  "SenestAabne" activity
-        lastOpenButton.setOnClickListener {
-            val intent = Intent(this, SenestAabne::class.java)
+        //Listens for a click on the "partsButton" and activates the intent to go to  "Reservedele" activity
+        partsButton.setOnClickListener {
+            val intent = Intent(this, Reservedele::class.java)
 
             startActivity(intent)
         }
