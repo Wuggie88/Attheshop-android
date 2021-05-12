@@ -12,7 +12,8 @@
     <string name="title_activity_biler">Biler</string>
     <string name="title_activity_igangvaerendeordre">Igangvaerendeordre</string>
     <string name="title_activity_senest_aabne">SenestAabne</string>
-    <string name="delete">DELETE_BTN</string>
-    <string name="find">FIND_BTN</string>
-    <string name="add">ADD_BTN</string>
+    <string name="DELETE_BTN">Slet</string>
+    <string name="FIND_BTN">Find</string>
+    <string name="ADD_BTN">Tilføj</string>
+    <string name="reservedelTekst">reservedel</string>
 </resources>

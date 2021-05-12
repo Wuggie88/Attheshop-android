@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import android.widget.Button
 import kotlinx.android.synthetic.main.content_reservedele.*
 
 
@@ -21,19 +22,25 @@ class Reservedele : AppCompatActivity() {
             startActivity(intent)
         }
 
-        fun newProduct(view: View) {
-            val dbHandler = DatabaseHandler(this, null, null, 1)
 
-            val quantity = Integer.parseInt(productQuantity.text.toString())
 
-            val product = ReservedeleModel(productName.text.toString(), quantity)
+            fun newProduct() {
+                val dbHandler = DatabaseHandler(this, null, null, 1)
 
-            dbHandler.addProduct(product)
-            productName.setText("")
-            productQuantity.setText("")
+                val quantity = Integer.parseInt(productQuantity.text.toString())
+
+                val product = ReservedeleModel(productName.text.toString(), quantity)
+
+                dbHandler.addProduct(product)
+                productName.setText("")
+                productQuantity.setText("")
+            }
+
+        button3.setOnClickListener {
+            newProduct()
         }
 
-        fun lookupProduct(view: View) {
+        fun lookupProduct() {
             val dbHandler = DatabaseHandler(this, null, null, 1)
 
             val product = dbHandler.findProduct(
@@ -49,7 +56,11 @@ class Reservedele : AppCompatActivity() {
             }
         }
 
-        fun removeProduct(view: View) {
+        button2.setOnClickListener {
+            lookupProduct()
+        }
+
+        fun removeProduct() {
             val dbHandler = DatabaseHandler(this, null, null, 1)
 
             val result = dbHandler.deleteProduct(
@@ -61,6 +72,10 @@ class Reservedele : AppCompatActivity() {
                 productQuantity.setText("")
             } else
                 productID.text = "No Match Found"
+        }
+
+        button.setOnClickListener {
+            removeProduct()
         }
     }
 
@@ -99,5 +114,6 @@ class Reservedele : AppCompatActivity() {
         super.onDestroy()
 
     }
+
 
 }
