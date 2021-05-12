@@ -11,7 +11,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.attheshop"
-        minSdkVersion 16
+        //raised min SDK to 22, so the app can handle more than 64k methods (multiple DEX files)
+        minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
