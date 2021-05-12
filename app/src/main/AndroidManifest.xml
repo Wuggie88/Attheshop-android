@@ -14,7 +14,7 @@
             android:label="@string/title_activity_senest_aabne"
             android:theme="@style/Theme.Attheshop.NoActionBar"></activity>
         <activity
-            android:name=".Igangvaerendeordre"
+            android:name=".Ordre"
             android:label="@string/title_activity_igangvaerendeordre"
             android:theme="@style/Theme.Attheshop.NoActionBar" />
         <activity

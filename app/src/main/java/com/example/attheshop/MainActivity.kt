@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         //Listens for a click on the "ordersButton" and activates the intent to go to  "Igangvaerendeordre" activity
         ordersButton.setOnClickListener {
-            val intent = Intent(this, Igangvaerendeordre::class.java)
+            val intent = Intent(this, Ordre::class.java)
 
             startActivity(intent)
         }
