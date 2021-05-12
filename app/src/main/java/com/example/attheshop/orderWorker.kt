@@ -9,9 +9,9 @@ class orderWorker(appContext: Context, workerParams: WorkerParameters):
     Worker(appContext, workerParams) {
     override fun doWork(): Result {
 
-        // Do some work coding here
+        // This uses the sms Manager, to send a message to the customer.
         val smsManager = SmsManager.getDefault() as SmsManager
-        smsManager.sendTextMessage("60186460", null, "This is a test message", null, null)
+        smsManager.sendTextMessage("60186460", null, "There's a new update on your order in At The Shop", null, null)
 
         // Indicate whether the work finished successfully with the Result
         return Result.success()

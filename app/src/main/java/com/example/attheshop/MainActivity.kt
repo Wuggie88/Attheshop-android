@@ -1,5 +1,6 @@
 package com.example.attheshop
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -49,6 +50,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // See if the user has not granted permission to read his or her text messages
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED) {
+            // Request the user to grant permission to read SMS messages
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS), 2);
+            System.out.println("Permission Denied")
+        }
     }
 
 
