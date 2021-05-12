@@ -33,6 +33,7 @@ class Ordre : AppCompatActivity() {
 
     }
 
+    //The workManager function that sends the work request to the worker class to perform a task.
     private fun testWM(){
         val workManager: WorkManager = WorkManager.getInstance(applicationContext)
         val uploadRequest: OneTimeWorkRequest = OneTimeWorkRequest.Builder(orderWorker::class.java).build()
