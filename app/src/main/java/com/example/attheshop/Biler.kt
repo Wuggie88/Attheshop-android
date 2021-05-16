@@ -2,11 +2,15 @@ package com.example.attheshop
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
-class Biler : AppCompatActivity() {
+class Biler : AppCompatActivity(), RecyclerViewAdapter.ItemClickListener {
+    var adapter: RecyclerViewAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +23,30 @@ class Biler : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // data to populate the first column of the RecyclerView with (test)
+        val animalNames: ArrayList<String> = ArrayList()
+        animalNames.add("Horse")
+        animalNames.add("Cow")
+        animalNames.add("Camel")
+        animalNames.add("Sheep")
+        animalNames.add("Goat")
+        animalNames.add("Wolf")
+
+        // data to populate the second column of the RecyclerView with (test)
+        val animalSounds: ArrayList<String> = ArrayList()
+        animalSounds.add("Pfff")
+        animalSounds.add("Moo")
+        animalSounds.add("Tygge")
+        animalSounds.add("Meh")
+        animalSounds.add("Beh")
+        animalSounds.add("Au")
+
+        // set up the RecyclerView
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerCars)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = RecyclerViewAdapter(this, animalNames, animalSounds)
+        adapter!!.setClickListener(this)
+        recyclerView.adapter = adapter
     }
 
 
@@ -55,6 +83,14 @@ class Biler : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
 
+    }
+
+    override fun onItemClick(view: View?, position: Int) {
+        Toast.makeText(
+                this,
+                "You clicked " + adapter!!.getItem(position) + " on row number " + position,
+                Toast.LENGTH_SHORT
+        ).show()
     }
 
 }
