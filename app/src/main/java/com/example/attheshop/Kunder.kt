@@ -3,10 +3,14 @@ package com.example.attheshop
 import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import android.view.View
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
-class Kunder : AppCompatActivity() {
+class Kunder : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
+    var adapter: MyRecyclerViewAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +22,29 @@ class Kunder : AppCompatActivity() {
 
             startActivity(intent)
         }
+
+        // data to populate the first column of the RecyclerView with (test)
+        val navn: ArrayList<String> = ArrayList()
+        navn.add("Kasper")
+        navn.add("Michelle")
+        navn.add("Jens")
+        navn.add("Nickolai")
+        navn.add("Anders")
+
+        // data to populate the second column of the RecyclerView with (test)
+        val nummer: ArrayList<String> = ArrayList()
+        nummer.add("15384159")
+        nummer.add("65982314")
+        nummer.add("78915213")
+        nummer.add("98643721")
+        nummer.add("68318462")
+
+        // set up the RecyclerView
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerKunder)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = MyRecyclerViewAdapter(this, navn, nummer)
+        adapter!!.setClickListener(this)
+        recyclerView.adapter = adapter
     }
 
 
@@ -56,4 +83,11 @@ class Kunder : AppCompatActivity() {
 
     }
 
+    override fun onItemClick(view: View?, position: Int) {
+        Toast.makeText(
+            this,
+            "You clicked " + adapter!!.getItem(position) + " on row number " + position,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 }

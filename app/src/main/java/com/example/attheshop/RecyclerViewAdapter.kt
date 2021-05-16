@@ -1,5 +1,6 @@
 package com.example.attheshop
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -28,10 +29,10 @@ class RecyclerViewAdapter  internal constructor(context: Context?, data: List<St
 
     // binds the data to the TextView in each row
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val animal = mData[position]
-        holder.myTextView.text = animal //tilføjer data til rows i recyclerview
-        val sounds = mData2[position]
-        holder.mySounds.text = sounds
+        val firstData = mData[position]
+        holder.myTextView.text = firstData //tilføjer data til rows i recyclerview
+        val secondData = mData2[position]
+        holder.mySounds.text = secondData
     }
 
     // total number of rows
@@ -51,7 +52,6 @@ class RecyclerViewAdapter  internal constructor(context: Context?, data: List<St
         }
 
         override fun onClick(view: View) {
-            @Suppress("DEPRECATION")
             if (mClickListener != null) mClickListener!!.onItemClick(view, adapterPosition)
         }
     }
@@ -60,13 +60,13 @@ class RecyclerViewAdapter  internal constructor(context: Context?, data: List<St
     fun getItem(id: Int): String {
         return mData[id]
     }
-
+/*
     // allows clicks events to be caught
     // Needs to be able to change between multiple listeners depending on activity
-    fun setClickListener(itemClickListener: Biler) {
+    fun setClickListener(itemClickListener: ) {
         mClickListener = itemClickListener
     }
-
+*/
     // parent activity will implement this method to respond to click events
     interface ItemClickListener {
         fun onItemClick(view: View?, position: Int)

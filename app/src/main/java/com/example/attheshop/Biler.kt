@@ -2,15 +2,15 @@ package com.example.attheshop
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class Biler : AppCompatActivity(), RecyclerViewAdapter.ItemClickListener {
-    var adapter: RecyclerViewAdapter? = null
+class Biler : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
+    var adapter: MyRecyclerViewAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,27 +24,27 @@ class Biler : AppCompatActivity(), RecyclerViewAdapter.ItemClickListener {
         }
 
         // data to populate the first column of the RecyclerView with (test)
-        val animalNames: ArrayList<String> = ArrayList()
-        animalNames.add("Horse")
-        animalNames.add("Cow")
-        animalNames.add("Camel")
-        animalNames.add("Sheep")
-        animalNames.add("Goat")
-        animalNames.add("Wolf")
+        val nummerplade: ArrayList<String> = ArrayList()
+        nummerplade.add("AB78521")
+        nummerplade.add("HK16502")
+        nummerplade.add("BI48615")
+        nummerplade.add("SW25621")
+        nummerplade.add("NU65448")
+        nummerplade.add("HI65731")
 
         // data to populate the second column of the RecyclerView with (test)
-        val animalSounds: ArrayList<String> = ArrayList()
-        animalSounds.add("Pfff")
-        animalSounds.add("Moo")
-        animalSounds.add("Tygge")
-        animalSounds.add("Meh")
-        animalSounds.add("Beh")
-        animalSounds.add("Au")
+        val make: ArrayList<String> = ArrayList()
+        make.add("Audi")
+        make.add("Mercedes")
+        make.add("Toyota")
+        make.add("Ford")
+        make.add("Skoda")
+        make.add("Volvo")
 
         // set up the RecyclerView
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerCars)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerBiler)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = RecyclerViewAdapter(this, animalNames, animalSounds)
+        adapter = MyRecyclerViewAdapter(this, nummerplade, make)
         adapter!!.setClickListener(this)
         recyclerView.adapter = adapter
     }

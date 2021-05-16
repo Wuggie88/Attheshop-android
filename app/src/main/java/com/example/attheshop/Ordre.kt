@@ -4,15 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_ordre.*
+import android.view.View
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
-class Ordre : AppCompatActivity() {
+class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
+    var adapter: MyRecyclerViewAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +34,30 @@ class Ordre : AppCompatActivity() {
             testWM()
         }
 
+        // data to populate the first column of the RecyclerView with (test)
+        val ordreNummer: ArrayList<String> = ArrayList()
+        ordreNummer.add("1")
+        ordreNummer.add("2")
+        ordreNummer.add("3")
+        ordreNummer.add("4")
+        ordreNummer.add("5")
+        ordreNummer.add("6")
+
+        // data to populate the second column of the RecyclerView with (test)
+        val nummerplade: ArrayList<String> = ArrayList()
+        nummerplade.add("AB78521")
+        nummerplade.add("HK16502")
+        nummerplade.add("BI48615")
+        nummerplade.add("SW25621")
+        nummerplade.add("NU65448")
+        nummerplade.add("HI65731")
+
+        // set up the RecyclerView
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerOrdre)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = MyRecyclerViewAdapter(this, ordreNummer, nummerplade)
+        adapter!!.setClickListener(this)
+        recyclerView.adapter = adapter
     }
 
     //The workManager function that sends the work request to the worker class to perform a task.
@@ -78,5 +105,11 @@ class Ordre : AppCompatActivity() {
         super.onDestroy()
 
     }
-
+    override fun onItemClick(view: View?, position: Int) {
+        Toast.makeText(
+            this,
+            "You clicked " + adapter!!.getItem(position) + " on row number " + position,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 }
