@@ -22,36 +22,48 @@ class Reservedele : AppCompatActivity() {
             startActivity(intent)
         }
 
-
+        //creating new product in local database
 
             fun newProduct() {
+                //calls the DatabaseHandler script to make it possible in insert values
                 val dbHandler = DatabaseHandler(this, null, null, 1)
 
+                //converts the value in writeable text field with id productQuantity to a string
                 val quantity = Integer.parseInt(productQuantity.text.toString())
 
+                //converts the value in writeable text field with id productName to a string and creates array containing this and quantity value
                 val product = ReservedeleModel(productName.text.toString(), quantity)
 
+                //inserts product in local database and resets the two writeable text fields.
                 dbHandler.addProduct(product)
                 productName.setText("")
                 productQuantity.setText("")
             }
 
+        //setOnClickListener watches the chosen button and registers if it gets pressed by the user.
         button3.setOnClickListener {
             newProduct()
         }
 
+        //function to search for a product already in the database.
         fun lookupProduct() {
             val dbHandler = DatabaseHandler(this, null, null, 1)
 
+            //converts text in writeable text field with id productName to string and compares the string to database
             val product = dbHandler.findProduct(
                     productName.text.toString())
 
+            //if match found id number in database converts to string
             if (product != null) {
                 productID.text = product.id.toString()
 
+                //the stored quantity of found product converts to string and is insert in text field with if productQuantity
                 productQuantity.setText(
                         product.quantity.toString())
-            } else {
+            }
+
+            //if no match found the text field with text id productID is set to "No Match Found"
+            else {
                 productID.text = "No Match Found"
             }
         }
@@ -60,20 +72,28 @@ class Reservedele : AppCompatActivity() {
             lookupProduct()
         }
 
+        //function to remove a stored product from database
         fun removeProduct() {
             val dbHandler = DatabaseHandler(this, null, null, 1)
 
+            //compares text from text field with id productName to database and removes from database if found.
             val result = dbHandler.deleteProduct(
                     productName.text.toString())
 
+                //if match is found text field with id productID is set to "Record Deleted"
             if (result) {
                 productID.text = "Record Deleted"
+
+                //text fields with id productName and id productQuantity is reset
                 productName.setText("")
                 productQuantity.setText("")
             } else
+
+                //if no match in database is found, no changes in database are made and textfield with id productID is set to "No Match Found"
                 productID.text = "No Match Found"
         }
 
+        //setOnClickListener watches the chosen button and registers if it gets pressed by the user.
         button.setOnClickListener {
             removeProduct()
         }
