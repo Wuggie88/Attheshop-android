@@ -2,17 +2,24 @@ package com.example.attheshop
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.content_view_order.*
+
 
 class ViewOrder : AppCompatActivity() {
 
-    val sessionId = intent.getStringExtra("Order_ID")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_order)
+
+        val intent = intent
+        val data = intent.getStringExtra("Order_ID")
+        val textView = findViewById<TextView>(R.id.ClickedItem)
+        textView.text = data
+
 
 
 
@@ -23,7 +30,6 @@ class ViewOrder : AppCompatActivity() {
             startActivity(intent)
         }
 
-        ClickedItem.text = sessionId
 
     }
 }

@@ -109,11 +109,5 @@ class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
         val intent = Intent(baseContext, ViewOrder::class.java)
         intent.putExtra("Order_ID", adapter!!.getItem((position)) )
         startActivity(intent)
-
-        Toast.makeText(
-            this,
-            "You clicked " + adapter!!.getItem(position) + " on row number " + position,
-            Toast.LENGTH_SHORT
-        ).show()
     }
 }
