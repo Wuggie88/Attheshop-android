@@ -2,14 +2,20 @@ package com.example.attheshop
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
 import kotlinx.android.synthetic.main.content_reservedele.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 
-class Reservedele : AppCompatActivity() {
+class Reservedele : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
+    var adapter: MyRecyclerViewAdapter? = null
+    val productIdList: ArrayList<String> = ArrayList()
+    val productNameList: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +44,8 @@ class Reservedele : AppCompatActivity() {
                 dbHandler.addProduct(product)
                 productName.setText("")
                 productQuantity.setText("")
+
+                findAllProducts()
             }
 
         //setOnClickListener watches the chosen button and registers if it gets pressed by the user.
@@ -87,23 +95,54 @@ class Reservedele : AppCompatActivity() {
                 //text fields with id productName and id productQuantity is reset
                 productName.setText("")
                 productQuantity.setText("")
-            } else
+            } else {
 
                 //if no match in database is found, no changes in database are made and textfield with id productID is set to "No Match Found"
                 productID.text = "No Match Found"
+            }
+            findAllProducts()
         }
 
         //setOnClickListener watches the chosen button and registers if it gets pressed by the user.
         button.setOnClickListener {
             removeProduct()
         }
+
+
+
+
+
+        // set up the RecyclerView
+        val recyclerView = findViewById<RecyclerView>(R.id.recReservedele)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = MyRecyclerViewAdapter(this, productIdList, productNameList)
+        adapter!!.setClickListener(this)
+        recyclerView.adapter = adapter
     }
 
+    //function to search for a product already in the database.
+    fun findAllProducts() {
+        val dbHandler = DatabaseHandler(this, null, null, 1)
+
+        //finds the full list of products from database
+        val productList: ArrayList<ReservedeleModel> = dbHandler.findAll()
+
+        //if the list of products is not empty it will add the items to to arrays, which will be used for recyclerview
+        if (productList != null) {
+            for(item in productList.indices) {
+                productIdList.add(""+productList[item].id.toString())
+                productNameList.add(""+productList[item].productName.toString())
+            }
+        } else{
+            val TAG = "MyActvity"
+            Log.i(TAG, "Products list is empty!")
+        }
+    }
 
     //onStart is is called when activity is visible to the user.
     override fun onStart() {
         super.onStart()
-
+        findAllProducts()
     }
 
     //onResume is called when the activity is going to the foreground.
@@ -135,5 +174,14 @@ class Reservedele : AppCompatActivity() {
 
     }
 
+    override fun onItemClick(view: View?, position: Int) {
+        val TAG = "MyActvity"
+        Log.i(TAG, adapter!!.getItem(position))
+        /*Toast.makeText(
+            this,
+            "You clicked " + adapter!!.getItem(position) + " on row number " + position,
+            Toast.LENGTH_SHORT
+        ).show()*/
+    }
 
 }

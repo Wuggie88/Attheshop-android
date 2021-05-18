@@ -93,6 +93,44 @@ class DatabaseHandler(context: Context, name: String?,
         return result
     }
 
-    
+    fun findAll(): ArrayList<ReservedeleModel> {
+        val query =
+            "SELECT * FROM $TABLE_PRODUCTS"
+
+        val db = this.writableDatabase
+
+        val cursor = db.rawQuery(query, null)
+
+        var product: ReservedeleModel? = null
+
+        val productList: ArrayList<ReservedeleModel> = ArrayList()
+        /*
+        val idList: ArrayList<Int> = ArrayList()
+        val nameList: ArrayList<String> = ArrayList()
+        val quantityList: ArrayList<Int> = ArrayList()
+        */
+        if (cursor.moveToFirst()) {
+            do {
+                /*
+                idList.add(Integer.parseInt(cursor.getString(0)))
+                nameList.add(cursor.getString(1))
+                quantityList.add(Integer.parseInt(cursor.getString(2)))
+                */
+                val id = Integer.parseInt(cursor.getString(0))
+                val name = cursor.getString(1)
+                val quantity = Integer.parseInt(cursor.getString(2))
+                product = ReservedeleModel(id, name, quantity)
+                productList.add(product)
+
+            } while (cursor.moveToNext())
+
+
+            cursor.close()
+        }
+
+        db.close()
+        return productList
+    }
+
 
 }
