@@ -16,4 +16,5 @@
     <string name="FIND_BTN">Find</string>
     <string name="ADD_BTN">Tilføj</string>
     <string name="reservedelTekst">reservedel</string>
+    <string name="title_activity_view_order">ViewOrder</string>
 </resources>

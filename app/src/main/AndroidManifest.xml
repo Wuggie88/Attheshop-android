@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.attheshop">
+    <!-- needed for the web service call -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- permission to use the SMS service of the phone for the SmsManager -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -10,9 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Attheshop">
         <activity
+            android:name=".ViewOrder"
+            android:label="@string/title_activity_view_order"
+            android:theme="@style/Theme.Attheshop.NoActionBar"></activity>
+        <activity
             android:name=".Reservedele"
             android:label="@string/title_activity_senest_aabne"
-            android:theme="@style/Theme.Attheshop.NoActionBar"></activity>
+            android:theme="@style/Theme.Attheshop.NoActionBar" />
         <activity
             android:name=".Ordre"
             android:label="@string/title_activity_igangvaerendeordre"
@@ -33,10 +40,5 @@
             </intent-filter>
         </activity>
     </application>
-
-    <!-- needed for the web service call -->
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <!-- permission to use the SMS service of the phone for the SmsManager -->
-    <uses-permission android:name="android.permission.SEND_SMS" />
 
 </manifest>
