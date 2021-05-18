@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class Reservedele : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
     var adapter: MyRecyclerViewAdapter? = null
+    var productList: ArrayList<ReservedeleModel> = ArrayList()
     val productIdList: ArrayList<String> = ArrayList()
     val productNameList: ArrayList<String> = ArrayList()
 
@@ -124,8 +125,13 @@ class Reservedele : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener
     fun findAllProducts() {
         val dbHandler = DatabaseHandler(this, null, null, 1)
 
+        productList.clear()
+        productIdList.clear()
+        productNameList.clear()
+
         //finds the full list of products from database
-        val productList: ArrayList<ReservedeleModel> = dbHandler.findAll()
+        productList = dbHandler.findAll()
+
 
         //if the list of products is not empty it will add the items to to arrays, which will be used for recyclerview
         if (productList != null) {
