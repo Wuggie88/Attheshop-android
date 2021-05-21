@@ -50,6 +50,7 @@ class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
     }
 
     //The workManager function that sends the work request to the worker class to perform a task.
+    //This currently sends a SMS to Kasper on a real phone, please don't spam it too hard when testing on real phones.
     private fun testWM(){
         val workManager: WorkManager = WorkManager.getInstance(applicationContext)
         val uploadRequest: OneTimeWorkRequest = OneTimeWorkRequest.Builder(orderWorker::class.java).build()
@@ -137,6 +138,8 @@ class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
         super.onDestroy()
 
     }
+
+    //activates when clicking on a value in the recycler view and sends what ordernumber got clicked on to the next activity.
     override fun onItemClick(view: View?, position: Int) {
         val intent = Intent(baseContext, ViewOrder::class.java)
         intent.putExtra("Order_ID", adapter!!.getItem((position)) )

@@ -9,7 +9,7 @@ class orderWorker(appContext: Context, workerParams: WorkerParameters):
     Worker(appContext, workerParams) {
     override fun doWork(): Result {
 
-        // This uses the sms Manager, to send a message to the customer.
+        // This uses the sms Manager, to send a message to the customer. This is set to Kaspers number so we don't spam everyone with texts. Use this button carefully on a real phone ;)
         val smsManager = SmsManager.getDefault() as SmsManager
         smsManager.sendTextMessage("60186460", null, "There's a new update on your order in At The Shop", null, null)
 

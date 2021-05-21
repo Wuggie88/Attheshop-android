@@ -17,8 +17,11 @@ import org.json.JSONObject
 
 
 class ViewOrder : AppCompatActivity() {
+
+    //makes a variable for the URL
     var infoPackage = EndPoints.URL_GETCUS1
 
+    //setup for all the arrays
     val ordrenummer: ArrayList<String> = ArrayList()
     val pris: ArrayList<String> = ArrayList()
     val nummerplade: ArrayList<String> = ArrayList()
@@ -34,11 +37,13 @@ class ViewOrder : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_order)
 
+        //Gets the data from previous page and sets it at a textview.
         val intent = intent
         val data = intent.getStringExtra("Order_ID")
         val textView = findViewById<TextView>(R.id.OrdreNummer)
         textView.text = data
 
+        //checks what customer got clicked on previous
         if (data == "1") {
             infoPackage = EndPoints.URL_GETCUS1
         } else if (data == "2") {
@@ -47,6 +52,7 @@ class ViewOrder : AppCompatActivity() {
             infoPackage = EndPoints.URL_GETCUS3
         }
 
+        //starts loaddata
         loaddata()
 
 
@@ -60,6 +66,7 @@ class ViewOrder : AppCompatActivity() {
 
     }
 
+    // starts the webservice call with a get method, the get in endpoints is chosen depending on data value
     private fun loaddata() {
         val stringRequest = StringRequest(
             Request.Method.GET,
@@ -74,7 +81,7 @@ class ViewOrder : AppCompatActivity() {
 
                         val e: JSONObject = orderInfo.getJSONObject(i)
 
-
+                        //adds all the info to the different arrays
                         ordrenummer.add(e.getString("Ordrenummer"))
                         pris.add(e.getString("Pris"))
                         nummerplade.add(e.getString("Nummerplade"))
@@ -88,6 +95,7 @@ class ViewOrder : AppCompatActivity() {
                         Log.i(tag1, telefonnummer.toString())
 
                     }
+                    //gets all the text views
                     val priceView = findViewById<TextView>(R.id.prisView)
                     val lpView = findViewById<TextView>(R.id.NummerpladeView)
                     val changeView = findViewById<TextView>(R.id.AendringerView)
@@ -95,6 +103,7 @@ class ViewOrder : AppCompatActivity() {
                     val orderStatusView = findViewById<TextView>(R.id.ordreStatusView)
                     val phoneNumberView = findViewById<TextView>(R.id.tlfView)
 
+                    //set all the text views to display the array values.
                     priceView.text = pris.toString()
                     lpView.text = nummerplade.toString()
                     changeView.text = aendringer.toString()
