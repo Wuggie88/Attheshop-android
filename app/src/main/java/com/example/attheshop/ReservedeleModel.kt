@@ -2,6 +2,7 @@ package com.example.attheshop
 
 import android.provider.BaseColumns
 
+// constructors for creating database items
 class ReservedeleModel {
 
     var id: Int = 0

@@ -7,8 +7,11 @@ import android.content.ContentValues
 
 class DatabaseHandler(context: Context, name: String?,
                       factory: SQLiteDatabase.CursorFactory?, version: Int) :
-        SQLiteOpenHelper(context, DATABASE_NAME,
+    SQLiteOpenHelper(context, DATABASE_NAME,
                 factory, DATABASE_VERSION) {
+
+    //creating local database to store information
+
     override fun onCreate(db: SQLiteDatabase) {
         val CREATE_PRODUCTS_TABLE = ("CREATE TABLE " +
                 TABLE_PRODUCTS + "("
@@ -17,13 +20,14 @@ class DatabaseHandler(context: Context, name: String?,
                 + " TEXT," + COLUMN_QUANTITY + " INTEGER" + ")")
         db.execSQL(CREATE_PRODUCTS_TABLE)
     }
-
+    
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int,
                            newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS)
         onCreate(db)
     }
 
+    //naming created database, tables and columns
     companion object {
 
         private val DATABASE_VERSION = 1
@@ -47,6 +51,7 @@ class DatabaseHandler(context: Context, name: String?,
         db.close()
     }
 
+        //looking up product in database and returning values if found.
     fun findProduct(productname: String): ReservedeleModel? {
         val query =
                 "SELECT * FROM $TABLE_PRODUCTS WHERE $COLUMN_PRODUCTNAME =  \"$productname\""
@@ -71,6 +76,7 @@ class DatabaseHandler(context: Context, name: String?,
         return product
     }
 
+    //deleting specific product from database
     fun deleteProduct(productname: String): Boolean {
 
         var result = false
@@ -93,6 +99,7 @@ class DatabaseHandler(context: Context, name: String?,
         return result
     }
 
+        //Making array of all database content to insert as a viewable list in app.
     fun findAll(): ArrayList<ReservedeleModel> {
         val query =
             "SELECT * FROM $TABLE_PRODUCTS"
