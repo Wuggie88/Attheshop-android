@@ -2,19 +2,34 @@ package com.example.attheshop
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 
 class Biler : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
     var adapter: MyRecyclerViewAdapter? = null
+    private var theView: TextView? = null
+
+    val nummerplade: ArrayList<String> = ArrayList()
+    val make: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_biler)
+
+        theView = findViewById(R.id.carView)
+        loaddata()
 
         //Sets the button with "fab" as ID, to go back to the MainActivity
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
@@ -22,7 +37,7 @@ class Biler : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
 
             startActivity(intent)
         }
-
+/*
         // data to populate the first column of the RecyclerView with (test)
         val nummerplade: ArrayList<String> = ArrayList()
         nummerplade.add("AB78521")
@@ -40,7 +55,7 @@ class Biler : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
         make.add("Ford")
         make.add("Skoda")
         make.add("Volvo")
-
+*/
         // set up the RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerBiler)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -49,6 +64,55 @@ class Biler : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
         recyclerView.adapter = adapter
     }
 
+
+    private fun loaddata() {
+        val stringRequest = StringRequest(Request.Method.GET,
+            EndPoints.URL_ROOT,
+            { s ->
+                try {
+                    val internships = JSONArray(s)
+
+                    //Loop the Array
+                    for (i in 0 until internships.length()-1) {
+                        Log.e("Message", "ORDRE")
+
+                        val e: JSONObject = internships.getJSONObject(i)
+
+                        //val testText = findViewById<TextView>(R.id.Test1)
+                        theView?.text = e.toString()
+/*
+                        ordreNummer.add(e.getString("Ordrenummer"))
+                        nummerplade.add(e.getString("Nummerplade"))
+*/
+/*
+                        val map = HashMap<String, String>()
+                        /*
+                        val e: JSONObject = internships.getJSONObject(i)
+*/
+                        map["Ordrenummer:"] = e.getString("Ordrenummer")
+                        map["Nummerplade:"] = e.getString("Nummerplade")
+*/
+                        val tag1 = "MyActivity"
+                        Log.i(tag1, e.toString())
+
+
+                    }
+                } catch (e: JSONException) {
+                    Log.e("log_tag", "Error parsing data $e")
+                }
+            },
+            { volleyError ->
+                Toast.makeText(
+                    applicationContext,
+                    volleyError.message,
+                    Toast.LENGTH_LONG
+                ).show()
+                Log.e("tryerr",  ""+volleyError.message)
+            })
+
+        val requestQueue = Volley.newRequestQueue(this)
+        requestQueue.add(stringRequest)
+    }
 
     //onStart is is called when activity is visible to the user.
     override fun onStart() {

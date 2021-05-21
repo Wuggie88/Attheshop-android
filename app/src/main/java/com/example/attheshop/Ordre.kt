@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
@@ -23,13 +25,16 @@ import org.json.JSONArray
 
 class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
     var adapter: MyRecyclerViewAdapter? = null
-    val ordreNummer: ArrayList<String> = ArrayList()
+    private var theView: TextView? = null
 
+    val ordreNummer: ArrayList<String> = ArrayList()
     val nummerplade: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ordre)
+
+        theView = findViewById(R.id.theProposition)
         loaddata()
 
         //Sets the button with "fab" as ID, to go back to the MainActivity
@@ -68,12 +73,7 @@ class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
 
          */
 
-        // set up the RecyclerView
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerOrdre)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = MyRecyclerViewAdapter(this, ordreNummer, nummerplade)
-        adapter!!.setClickListener(this)
-        recyclerView.adapter = adapter
+
     }
 
     //The workManager function that sends the work request to the worker class to perform a task.
@@ -87,9 +87,8 @@ class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
     }
 
     private fun loaddata() {
-        val stringRequest = StringRequest(
-            Request.Method.GET,
-            EndPoints.URL_GETORDER1,
+        val stringRequest = StringRequest(Request.Method.GET,
+            EndPoints.URL_ROOT,
             { s ->
                 try {
                     val internships = JSONArray(s)
@@ -100,20 +99,23 @@ class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
 
                         val e: JSONObject = internships.getJSONObject(i)
 
+                        //val testText = findViewById<TextView>(R.id.Test1)
+                        theView?.text = e.toString()
+
                         ordreNummer.add(e.getString("Ordrenummer"))
                         nummerplade.add(e.getString("Nummerplade"))
 
-                        /*
-                        val map = HashMap<String, String>()
-                        val e: JSONObject = internships.getJSONObject(i)
-
-                        map["Ordrenummer:"] = e.getString("Ordrenummer")
-                        map["Nummerplade:"] = e.getString("Nummerplade")
-
                         val tag1 = "MyActivity"
-                        Log.i(tag1, map.toString())
-*/
+                        Log.i(tag1, ordreNummer.toString())
+
                     }
+                    // set up the RecyclerView
+                    val recyclerView = findViewById<RecyclerView>(R.id.recyclerOrdre)
+                    recyclerView.layoutManager = LinearLayoutManager(this)
+                    adapter = MyRecyclerViewAdapter(this, ordreNummer, nummerplade)
+                    adapter!!.setClickListener(this)
+                    recyclerView.adapter = adapter
+
                 } catch (e: JSONException) {
                     Log.e("log_tag", "Error parsing data $e")
                 }
