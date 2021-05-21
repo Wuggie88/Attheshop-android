@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.content_view_order.*
 import org.json.JSONArray
@@ -16,7 +17,6 @@ import org.json.JSONObject
 
 
 class ViewOrder : AppCompatActivity() {
-    var adapter: MyRecyclerViewAdapter? = null
     var infoPackage = EndPoints.URL_GETCUS1
 
     val ordrenummer: ArrayList<String> = ArrayList()
@@ -27,12 +27,7 @@ class ViewOrder : AppCompatActivity() {
     val ordrestatus: ArrayList<String> = ArrayList()
     val telefonnummer: ArrayList<String> = ArrayList()
 
-    val priceView = findViewById<TextView>(R.id.prisView)
-    val lpView = findViewById<TextView>(R.id.NummerpladeView)
-    val changeView = findViewById<TextView>(R.id.AendringerView)
-    val msgView = findViewById<TextView>(R.id.beskedView)
-    val orderStatusView = findViewById<TextView>(R.id.ordreStatusView)
-    val phoneNumberView = findViewById<TextView>(R.id.tlfView)
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,10 +84,16 @@ class ViewOrder : AppCompatActivity() {
                         telefonnummer.add(e.getString("Telefonnummer"))
 
 
-                        val tag1 = "MyActivity"
+                        val tag1 = "ViewOrder"
                         Log.i(tag1, telefonnummer.toString())
 
                     }
+                    val priceView = findViewById<TextView>(R.id.prisView)
+                    val lpView = findViewById<TextView>(R.id.NummerpladeView)
+                    val changeView = findViewById<TextView>(R.id.AendringerView)
+                    val msgView = findViewById<TextView>(R.id.beskedView)
+                    val orderStatusView = findViewById<TextView>(R.id.ordreStatusView)
+                    val phoneNumberView = findViewById<TextView>(R.id.tlfView)
 
                     priceView.text = pris.toString()
                     lpView.text = nummerplade.toString()
@@ -113,5 +114,8 @@ class ViewOrder : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             })
+
+        val requestQueue = Volley.newRequestQueue(this)
+        requestQueue.add(stringRequest)
     }
 }
