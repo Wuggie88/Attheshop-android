@@ -25,7 +25,6 @@ import org.json.JSONArray
 
 class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
     var adapter: MyRecyclerViewAdapter? = null
-    private var theView: TextView? = null
 
     val ordreNummer: ArrayList<String> = ArrayList()
     val nummerplade: ArrayList<String> = ArrayList()
@@ -34,7 +33,6 @@ class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ordre)
 
-        theView = findViewById(R.id.theProposition)
         loaddata()
 
         //Sets the button with "fab" as ID, to go back to the MainActivity
@@ -49,31 +47,6 @@ class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
         testWMBTN.setOnClickListener {
             testWM()
         }
-
-
-
-        /*
-        // data to populate the first column of the RecyclerView with (test)
-        val ordreNummer: ArrayList<String> = ArrayList()
-        ordreNummer.add("1")
-        ordreNummer.add("2")
-        ordreNummer.add("3")
-        ordreNummer.add("4")
-        ordreNummer.add("5")
-        ordreNummer.add("6")
-
-        // data to populate the second column of the RecyclerView with (test)
-        val nummerplade: ArrayList<String> = ArrayList()
-        nummerplade.add("AB78521")
-        nummerplade.add("HK16502")
-        nummerplade.add("BI48615")
-        nummerplade.add("SW25621")
-        nummerplade.add("NU65448")
-        nummerplade.add("HI65731")
-
-         */
-
-
     }
 
     //The workManager function that sends the work request to the worker class to perform a task.
@@ -88,7 +61,7 @@ class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
 
     private fun loaddata() {
         val stringRequest = StringRequest(Request.Method.GET,
-            EndPoints.URL_ROOT,
+            EndPoints.URL_GETORDER1,
             { s ->
                 try {
                     val internships = JSONArray(s)
@@ -98,9 +71,6 @@ class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
                         Log.e("Message", "ORDRE")
 
                         val e: JSONObject = internships.getJSONObject(i)
-
-                        //val testText = findViewById<TextView>(R.id.Test1)
-                        theView?.text = e.toString()
 
                         ordreNummer.add(e.getString("Ordrenummer"))
                         nummerplade.add(e.getString("Nummerplade"))

@@ -17,4 +17,5 @@
     <string name="ADD_BTN">Tilføj</string>
     <string name="reservedelTekst">reservedel</string>
     <string name="title_activity_view_order">ViewOrder</string>
+    <string name="title_activity_view_biler">ViewBiler</string>
 </resources>

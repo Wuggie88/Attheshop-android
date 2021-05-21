@@ -14,9 +14,13 @@
         android:theme="@style/Theme.Attheshop"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ViewBiler"
+            android:label="@string/title_activity_view_biler"
+            android:theme="@style/Theme.Attheshop.NoActionBar"></activity>
+        <activity
             android:name=".ViewOrder"
             android:label="@string/title_activity_view_order"
-            android:theme="@style/Theme.Attheshop.NoActionBar"></activity>
+            android:theme="@style/Theme.Attheshop.NoActionBar" />
         <activity
             android:name=".Reservedele"
             android:label="@string/title_activity_senest_aabne"

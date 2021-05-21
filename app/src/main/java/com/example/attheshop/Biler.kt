@@ -19,7 +19,6 @@ import org.json.JSONObject
 
 class Biler : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
     var adapter: MyRecyclerViewAdapter? = null
-    private var theView: TextView? = null
 
     val nummerplade: ArrayList<String> = ArrayList()
     val make: ArrayList<String> = ArrayList()
@@ -28,7 +27,6 @@ class Biler : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_biler)
 
-        theView = findViewById(R.id.carView)
         loaddata()
 
         //Sets the button with "fab" as ID, to go back to the MainActivity
@@ -37,66 +35,33 @@ class Biler : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
 
             startActivity(intent)
         }
-/*
-        // data to populate the first column of the RecyclerView with (test)
-        val nummerplade: ArrayList<String> = ArrayList()
-        nummerplade.add("AB78521")
-        nummerplade.add("HK16502")
-        nummerplade.add("BI48615")
-        nummerplade.add("SW25621")
-        nummerplade.add("NU65448")
-        nummerplade.add("HI65731")
-
-        // data to populate the second column of the RecyclerView with (test)
-        val make: ArrayList<String> = ArrayList()
-        make.add("Audi")
-        make.add("Mercedes")
-        make.add("Toyota")
-        make.add("Ford")
-        make.add("Skoda")
-        make.add("Volvo")
-*/
-        // set up the RecyclerView
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerBiler)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = MyRecyclerViewAdapter(this, nummerplade, make)
-        adapter!!.setClickListener(this)
-        recyclerView.adapter = adapter
     }
 
 
     private fun loaddata() {
         val stringRequest = StringRequest(Request.Method.GET,
-            EndPoints.URL_ROOT,
+            EndPoints.URL_GETBILER1,
             { s ->
                 try {
                     val internships = JSONArray(s)
 
                     //Loop the Array
-                    for (i in 0 until internships.length()-1) {
+                    for (i in 0 until internships.length()) {
                         Log.e("Message", "ORDRE")
 
                         val e: JSONObject = internships.getJSONObject(i)
 
-                        //val testText = findViewById<TextView>(R.id.Test1)
-                        theView?.text = e.toString()
-/*
-                        ordreNummer.add(e.getString("Ordrenummer"))
                         nummerplade.add(e.getString("Nummerplade"))
-*/
-/*
-                        val map = HashMap<String, String>()
-                        /*
-                        val e: JSONObject = internships.getJSONObject(i)
-*/
-                        map["Ordrenummer:"] = e.getString("Ordrenummer")
-                        map["Nummerplade:"] = e.getString("Nummerplade")
-*/
-                        val tag1 = "MyActivity"
-                        Log.i(tag1, e.toString())
-
+                        make.add(e.getString("Make"))
 
                     }
+                    // set up the RecyclerView
+                    val recyclerView = findViewById<RecyclerView>(R.id.recyclerBiler)
+                    recyclerView.layoutManager = LinearLayoutManager(this)
+                    adapter = MyRecyclerViewAdapter(this, nummerplade, make)
+                    adapter!!.setClickListener(this)
+                    recyclerView.adapter = adapter
+
                 } catch (e: JSONException) {
                     Log.e("log_tag", "Error parsing data $e")
                 }
@@ -107,7 +72,7 @@ class Biler : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
                     volleyError.message,
                     Toast.LENGTH_LONG
                 ).show()
-                Log.e("tryerr",  ""+volleyError.message)
+                Log.e("volerr",  ""+volleyError.message)
             })
 
         val requestQueue = Volley.newRequestQueue(this)
@@ -149,12 +114,11 @@ class Biler : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
 
     }
 
+    // change ViewOrder activity to something else
     override fun onItemClick(view: View?, position: Int) {
-        Toast.makeText(
-                this,
-                "You clicked " + adapter!!.getItem(position) + " on row number " + position,
-                Toast.LENGTH_SHORT
-        ).show()
+        val intent = Intent(baseContext, ViewOrder::class.java)
+        intent.putExtra("Order_ID", adapter!!.getItem((position)) )
+        startActivity(intent)
     }
 
 }
