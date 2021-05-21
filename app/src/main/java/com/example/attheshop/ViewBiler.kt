@@ -1,5 +1,6 @@
 package com.example.attheshop
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -14,13 +15,15 @@ class ViewBiler : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         val intent = intent
-        val data = intent.getStringExtra("Order_ID")
+        val data = intent.getStringExtra("Nummerplade")
         val textView = findViewById<TextView>(R.id.ClickedItemBiler)
         textView.text = data
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        //Sets the button with "fab" as ID, to go back to the Biler Activity
+        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+            val intent = Intent(this, Biler::class.java)
+
+            startActivity(intent)
         }
     }
 }
