@@ -116,8 +116,8 @@ class Biler : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
 
     // change ViewOrder activity to something else
     override fun onItemClick(view: View?, position: Int) {
-        val intent = Intent(baseContext, ViewOrder::class.java)
-        intent.putExtra("Order_ID", adapter!!.getItem((position)) )
+        val intent = Intent(baseContext, ViewBiler::class.java)
+        intent.putExtra("Nummerplade", adapter!!.getItem((position)) )
         startActivity(intent)
     }
 
