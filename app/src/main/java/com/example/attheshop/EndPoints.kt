@@ -5,7 +5,9 @@ object EndPoints {
     val URL_ROOT = "http://192.168.0.139/AtTheShop/"
     val URL_GETDATA = URL_ROOT + "index.php"
     val URL_GETORDER1 = URL_ROOT + "ordre_1.php"
-    val URL_GETORDER2 = URL_ROOT + "order_2.php"
     val URL_GETKUNDER1 = URL_ROOT + "kunder_1.php"
     val URL_GETBILER1 = URL_ROOT + "biler_1.php"
+    val URL_GETCUS1 = URL_ROOT + "ordreInfo1.php"
+    val URL_GETCUS2 = URL_ROOT + "ordreInfo2.php"
+    val URL_GETCUS3 = URL_ROOT + "ordreInfo3.php"
 }

@@ -13,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Attheshop"
         android:usesCleartextTraffic="true">
+        <!--CleartextTraffic is for API 28+ can use the webservice call-->
+
         <activity
             android:name=".ViewBiler"
             android:label="@string/title_activity_view_biler"
