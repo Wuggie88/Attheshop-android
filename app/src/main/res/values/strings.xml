@@ -18,4 +18,5 @@
     <string name="reservedelTekst">reservedel</string>
     <string name="title_activity_view_order">ViewOrder</string>
     <string name="title_activity_view_biler">ViewBiler</string>
+    <string name="title_activity_view_kunder">ViewKunder</string>
 </resources>

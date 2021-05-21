@@ -13,12 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Attheshop"
         android:usesCleartextTraffic="true">
-        <!--CleartextTraffic is for API 28+ can use the webservice call-->
-
+        <activity
+            android:name=".ViewKunder"
+            android:label="@string/title_activity_view_kunder"
+            android:theme="@style/Theme.Attheshop.NoActionBar"></activity>
+        <!-- CleartextTraffic is for API 28+ can use the webservice call -->
         <activity
             android:name=".ViewBiler"
             android:label="@string/title_activity_view_biler"
-            android:theme="@style/Theme.Attheshop.NoActionBar"></activity>
+            android:theme="@style/Theme.Attheshop.NoActionBar" />
         <activity
             android:name=".ViewOrder"
             android:label="@string/title_activity_view_order"

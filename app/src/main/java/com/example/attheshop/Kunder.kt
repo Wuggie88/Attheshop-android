@@ -113,10 +113,10 @@ class Kunder : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
         super.onDestroy()
 
     }
-    // change ViewOrder activity to something else
+    // change ViewKunder activity to something else
     override fun onItemClick(view: View?, position: Int) {
-        val intent = Intent(baseContext, ViewOrder::class.java)
-        intent.putExtra("Order_ID", adapter!!.getItem((position)) )
+        val intent = Intent(baseContext, ViewKunder::class.java)
+        intent.putExtra("Navn", adapter!!.getItem((position)) )
         startActivity(intent)
     }
 }
