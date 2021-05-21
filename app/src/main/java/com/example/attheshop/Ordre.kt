@@ -2,6 +2,7 @@ package com.example.attheshop
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -11,11 +12,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.content_ordre.*
+import org.json.JSONException
+import org.json.JSONObject
+import org.json.JSONArray
 
 class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
     var adapter: MyRecyclerViewAdapter? = null
+    val ordreNummer: ArrayList<String> = ArrayList()
+
+    val nummerplade: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +44,9 @@ class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
             testWM()
         }
 
+
+
+        /*
         // data to populate the first column of the RecyclerView with (test)
         val ordreNummer: ArrayList<String> = ArrayList()
         ordreNummer.add("1")
@@ -52,6 +65,8 @@ class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
         nummerplade.add("NU65448")
         nummerplade.add("HI65731")
 
+         */
+
         // set up the RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerOrdre)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -68,6 +83,50 @@ class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
         workManager.getWorkInfoByIdLiveData(uploadRequest.id).observe(this,{
             Test1.text = it.state.name
         })
+    }
+
+    private fun loaddata() {
+        val stringRequest = StringRequest(
+            Request.Method.GET,
+            EndPoints.URL_GETORDER1,
+            { s ->
+                try {
+                    val internships = JSONArray(s)
+
+                    //Loop the Array
+                    for (i in 0 until internships.length()) {
+                        Log.e("Message", "ORDRE")
+
+                        val e: JSONObject = internships.getJSONObject(i)
+
+                        ordreNummer.add(e.getString("Ordrenummer"))
+                        nummerplade.add(e.getString("Nummerplade"))
+
+                        /*
+                        val map = HashMap<String, String>()
+                        val e: JSONObject = internships.getJSONObject(i)
+
+                        map["Ordrenummer:"] = e.getString("Ordrenummer")
+                        map["Nummerplade:"] = e.getString("Nummerplade")
+
+                        val tag1 = "MyActivity"
+                        Log.i(tag1, map.toString())
+*/
+                    }
+                } catch (e: JSONException) {
+                    Log.e("log_tag", "Error parsing data $e")
+                }
+            },
+            { volleyError ->
+                Toast.makeText(
+                    applicationContext,
+                    volleyError.message,
+                    Toast.LENGTH_LONG
+                ).show()
+            })
+
+        val requestQueue = Volley.newRequestQueue(this)
+        requestQueue.add(stringRequest)
     }
 
 
