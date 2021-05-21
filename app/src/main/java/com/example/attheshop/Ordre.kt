@@ -30,6 +30,7 @@ class Ordre : AppCompatActivity(), MyRecyclerViewAdapter.ItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ordre)
+        loaddata()
 
         //Sets the button with "fab" as ID, to go back to the MainActivity
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
